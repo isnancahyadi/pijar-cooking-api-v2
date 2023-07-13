@@ -12,6 +12,18 @@ module.exports = {
         username,
       };
 
+      const findUser = await model.findUser(username);
+
+      if (findUser) {
+        if (findUser?.length) {
+          response(409, "ERROR", "User already registered", null, res);
+          return;
+        }
+      } else {
+        response(500, "ERROR", "WOW... Something wrong with server", null, res);
+        return;
+      }
+
       const query = await model.createUser(payLoad);
 
       if (query) {

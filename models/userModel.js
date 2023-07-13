@@ -14,4 +14,13 @@ module.exports = {
       return;
     }
   },
+
+  findUser: async (username) => {
+    try {
+      const query = db`SELECT * FROM users WHERE username = ${username}`;
+      return query;
+    } catch (error) {
+      return;
+    }
+  },
 };
