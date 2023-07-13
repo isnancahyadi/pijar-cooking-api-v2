@@ -1,4 +1,4 @@
-import postgres from "postgres";
+const postgres = require("postgres");
 
 const sql = postgres({
   host: process.env.DATABASE_HOST,
@@ -8,4 +8,4 @@ const sql = postgres({
   password: process.env.DATABASE_PASSWORD,
 });
 
-export default sql;
+module.exports = sql;
