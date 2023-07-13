@@ -10,4 +10,10 @@ module.exports = [
     controller: require("../controllers/Recipe").getAllRecipes,
     method: "get",
   },
+  {
+    path: "/user",
+    controller: require("../controllers/Users").createUser,
+    validator: require("../controllers/Users/validator").createUser,
+    method: "post",
+  },
 ];
