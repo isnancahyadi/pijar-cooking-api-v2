@@ -1,10 +1,18 @@
 const router = require("express").Router();
+const private = require("./private");
 const public = require("./public");
 
 const validator = require("../middlewares/mainValidator");
+const authMiddleware = require("../middlewares/authToken");
+
+let private_get = private.filter((res) => res.method === "get");
 
 let public_get = public.filter((res) => res.method === "get");
 let public_post = public.filter((res) => res.method === "post");
+
+private_get.map((result) => {
+  router.get(result.path, authMiddleware, result.controller);
+});
 
 public_get.map((result) => {
   router.get(result.path, result.controller);

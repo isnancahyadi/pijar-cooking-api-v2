@@ -1,5 +1,12 @@
 const model = require("../../models/userModel");
 const response = require("../../utils/response");
+const jwt = require("jsonwebtoken");
+
+const getToken = (req) => {
+  const token = req?.headers?.authorization?.slice(6).trim();
+
+  return token;
+};
 
 module.exports = {
   createUser: async (req, res) => {
@@ -29,6 +36,29 @@ module.exports = {
       if (query) {
         response(201, "OK", "User has been created", null, res);
         return;
+      } else {
+        response(500, "ERROR", "WOW... Something wrong with server", null, res);
+        return;
+      }
+    } catch (error) {
+      response(400, "ERROR", "Awww... Something wrong...", null, res);
+      return;
+    }
+  },
+
+  getUser: async (req, res) => {
+    try {
+      const { username } = jwt.verify(getToken(req), process.env.KEY);
+      const query = await model.findUser(username);
+
+      if (query) {
+        if (!query?.length) {
+          response(404, "ERROR", "Hey, Who are you?", null, res);
+          return;
+        } else {
+          response(200, "OK", "Get data success", query, res);
+          return;
+        }
       } else {
         response(500, "ERROR", "WOW... Something wrong with server", null, res);
         return;
