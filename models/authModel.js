@@ -34,4 +34,14 @@ module.exports = {
       return;
     }
   },
+
+  checkAccount: async (user) => {
+    try {
+      const query =
+        await db`SELECT * FROM accounts WHERE username = ${user} OR email = ${user}`;
+      return query ? query : 1;
+    } catch (error) {
+      return 0;
+    }
+  },
 };

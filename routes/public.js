@@ -6,6 +6,12 @@ module.exports = [
     method: "post",
   },
   {
+    path: "/auth/login",
+    controller: require("../controllers/Auth").login,
+    validator: require("../controllers/Auth/validator").login,
+    method: "post",
+  },
+  {
     path: "/recipe",
     controller: require("../controllers/Recipe").getAllRecipes,
     method: "get",

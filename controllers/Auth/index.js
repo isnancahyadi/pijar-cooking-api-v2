@@ -1,5 +1,6 @@
 const model = require("../../models/authModel");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const response = require("../../utils/response");
 
 const saltRounds = 14;
@@ -55,7 +56,46 @@ module.exports = {
       });
     } catch (error) {
       response(400, "ERROR", "Awww... Something wrong...", null, res);
-      console.log(error);
+      return;
+    }
+  },
+
+  login: async (req, res) => {
+    const { username, password } = req.body;
+
+    try {
+      const checkAccount = await model.checkAccount(username);
+
+      if (checkAccount) {
+        if (!checkAccount?.length || checkAccount === 1) {
+          response(404, "ERROR", "Account not found", null, res);
+          return;
+        }
+      } else {
+        response(500, "ERROR", "WOW... Something wrong with server", null, res);
+        return;
+      }
+
+      bcrypt.compare(password, checkAccount[0]?.password, (err, result) => {
+        if (result) {
+          delete checkAccount[0].password;
+          const token = jwt.sign(checkAccount[0], process.env.KEY);
+
+          response(
+            200,
+            "OK",
+            "Login success",
+            { ...checkAccount[0], token },
+            res
+          );
+          return;
+        } else {
+          response(401, "ERROR", "Password invalid", null, res);
+          return;
+        }
+      });
+    } catch (error) {
+      response(400, "ERROR", "Awww... Something wrong...", null, res);
       return;
     }
   },

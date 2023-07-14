@@ -10,4 +10,14 @@ module.exports = {
     ],
     rePassword: "required|same:password",
   },
+
+  login: {
+    username: "required",
+    password: [
+      "required",
+      //   "regex:[/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@$%^&])/]",
+      "minLength:8",
+      "maxLength:32",
+    ],
+  },
 };
