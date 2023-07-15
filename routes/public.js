@@ -22,4 +22,9 @@ module.exports = [
     validator: require("../controllers/Users/validator").createUser,
     method: "post",
   },
+  {
+    path: "/recipe/new",
+    controller: require("../controllers/Recipe").getNewRecipes,
+    method: "get",
+  },
 ];

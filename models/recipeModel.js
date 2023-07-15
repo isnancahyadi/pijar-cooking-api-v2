@@ -9,4 +9,19 @@ module.exports = {
       return;
     }
   },
+
+  getNewRecipes: async (limit) => {
+    try {
+      let query;
+      if (limit) {
+        query =
+          await db`SELECT * FROM recipes ORDER BY created_at DESC LIMIT ${limit}`;
+      } else {
+        query = await db`SELECT * FROM recipes ORDER BY created_at DESC`;
+      }
+      return query;
+    } catch (error) {
+      return;
+    }
+  },
 };
