@@ -3,13 +3,13 @@ const db = require("../config/db");
 module.exports = {
   createUser: async (payload) => {
     try {
-      await db`INSERT INTO users ${db(
+      const query = await db`INSERT INTO users ${db(
         payload,
         "fullname",
         "phone_number",
         "username"
-      )}`;
-      return true;
+      )} returning id, profile_picture`;
+      return query;
     } catch (error) {
       return;
     }

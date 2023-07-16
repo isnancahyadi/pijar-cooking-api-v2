@@ -34,7 +34,7 @@ module.exports = {
       const query = await model.createUser(payLoad);
 
       if (query) {
-        response(201, "OK", "User has been created", null, res);
+        response(201, "OK", "User has been created", query, res);
         return;
       } else {
         response(500, "ERROR", "WOW... Something wrong with server", null, res);
