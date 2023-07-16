@@ -4,7 +4,7 @@ const response = require("../../utils/response");
 module.exports = {
   getAllRecipes: async (req, res) => {
     try {
-      const query = await model.getAllRecipes();
+      const query = await model.getAllRecipes(req?.query?.limit);
 
       if (query) {
         response(200, "OK", "SUCCESS", query, res);

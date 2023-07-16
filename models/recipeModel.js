@@ -1,9 +1,14 @@
 const db = require("../config/db");
 
 module.exports = {
-  getAllRecipes: async () => {
+  getAllRecipes: async (limit) => {
     try {
-      const query = await db`SELECT * FROM recipes`;
+      let query;
+      if (limit) {
+        query = await db`SELECT * FROM recipes LIMIT ${limit}`;
+      } else {
+        query = await db`SELECT * FROM recipes`;
+      }
       return query;
     } catch (error) {
       return;
