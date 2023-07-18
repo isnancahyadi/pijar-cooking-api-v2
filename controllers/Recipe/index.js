@@ -4,7 +4,10 @@ const response = require("../../utils/response");
 module.exports = {
   getAllRecipes: async (req, res) => {
     try {
-      const query = await model.getAllRecipes(req?.query?.limit);
+      const query = await model.getAllRecipes(
+        req?.query?.search,
+        req?.query?.limit
+      );
 
       if (query) {
         response(200, "OK", "SUCCESS", query, res);
