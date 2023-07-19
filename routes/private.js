@@ -10,4 +10,9 @@ module.exports = [
     validator: require("../controllers/Recipe/validator").createRecipe,
     method: "post",
   },
+  {
+    path: "/recipe/my-recipe",
+    controller: require("../controllers/Recipe").getMyRecipes,
+    method: "get",
+  },
 ];

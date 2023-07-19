@@ -39,6 +39,16 @@ module.exports = {
     }
   },
 
+  getMyRecipes: async (username) => {
+    try {
+      const query =
+        await db`SELECT * FROM recipes WHERE created_by = ${username}`;
+      return query;
+    } catch (error) {
+      return;
+    }
+  },
+
   createRecipe: async (payload) => {
     try {
       await db`INSERT INTO recipes ${db(

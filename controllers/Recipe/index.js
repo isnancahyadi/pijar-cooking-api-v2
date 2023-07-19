@@ -48,6 +48,42 @@ module.exports = {
     }
   },
 
+  getMyRecipes: async (req, res) => {
+    try {
+      const { username } = jwt.verify(getToken(req), process.env.KEY);
+      const findUser = await userModel.findUser(username);
+
+      if (findUser) {
+        if (!findUser.length) {
+          response(404, "ERROR", "Hey, Who are you?", null, res);
+          return;
+        } else {
+          const query = await model.getMyRecipes(username);
+
+          if (query) {
+            response(200, "OK", "Get data success", query, res);
+            return;
+          } else {
+            response(
+              500,
+              "ERROR",
+              "WOW... Something wrong with server",
+              null,
+              res
+            );
+            return;
+          }
+        }
+      } else {
+        response(500, "ERROR", "WOW... Something wrong with server", null, res);
+        return;
+      }
+    } catch (error) {
+      response(400, "ERROR", "Awww... Something wrong...", null, res);
+      return;
+    }
+  },
+
   createRecipe: async (req, res) => {
     try {
       const { username } = jwt.verify(getToken(req), process.env.KEY);
