@@ -27,4 +27,9 @@ module.exports = [
     controller: require("../controllers/Recipe").getNewRecipes,
     method: "get",
   },
+  {
+    path: "/recipe/:id",
+    controller: require("../controllers/Recipe").getSpecifiedRecipe,
+    method: "get",
+  },
 ];

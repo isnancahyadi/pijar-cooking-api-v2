@@ -48,6 +48,34 @@ module.exports = {
     }
   },
 
+  getSpecifiedRecipe: async (req, res) => {
+    const id = req?.params?.id;
+
+    if (isNaN(id)) {
+      response(400, "ERROR", "Hey, What are you doing?", null, res);
+      return;
+    }
+
+    try {
+      const query = await model.getSpecifiedRecipe(id);
+
+      if (query) {
+        if (!query.length) {
+          response(404, "ERROR", "Recipe not found", null, res);
+          return;
+        }
+        response(200, "OK", "Get data success", query, res);
+        return;
+      } else {
+        response(500, "ERROR", "WOW... Something wrong with server", null, res);
+        return;
+      }
+    } catch (error) {
+      response(400, "ERROR", "Awww... Something wrong...", null, res);
+      return;
+    }
+  },
+
   getMyRecipes: async (req, res) => {
     try {
       const { username } = jwt.verify(getToken(req), process.env.KEY);
