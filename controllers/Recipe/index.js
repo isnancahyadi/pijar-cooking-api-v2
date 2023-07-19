@@ -1,5 +1,14 @@
 const model = require("../../models/recipeModel");
+const userModel = require("../../models/userModel");
 const response = require("../../utils/response");
+const jwt = require("jsonwebtoken");
+const cloudinary = require("../../utils/cloudinary");
+
+const getToken = (req) => {
+  const token = req?.headers?.authorization?.slice(6).trim();
+
+  return token;
+};
 
 module.exports = {
   getAllRecipes: async (req, res) => {
@@ -29,6 +38,85 @@ module.exports = {
       if (query) {
         response(200, "OK", "Get all data success", query, res);
         return;
+      } else {
+        response(500, "ERROR", "WOW... Something wrong with server", null, res);
+        return;
+      }
+    } catch (error) {
+      response(400, "ERROR", "Awww... Something wrong...", null, res);
+      return;
+    }
+  },
+
+  createRecipe: async (req, res) => {
+    try {
+      const { username } = jwt.verify(getToken(req), process.env.KEY);
+      const findUser = await userModel.findUser(username);
+
+      if (findUser) {
+        if (!findUser?.length) {
+          response(404, "ERROR", "Hey, Who are you?", null, res);
+          return;
+        } else {
+          const { title, ingredients, video, direction } = req?.body;
+          const { image } = req?.files;
+
+          let mimeType = image.mimetype.split("/")[1];
+          let allowFile = ["jpeg", "jpg", "png", "webp"];
+
+          if (!allowFile?.find((item) => item === mimeType)) {
+            response(
+              400,
+              "ERROR",
+              "Hey, What are you doing with image?",
+              null,
+              res
+            );
+            return;
+          }
+
+          if (image.size > 2000000) {
+            response(400, "ERROR", "Image is too big", null, res);
+            return;
+          }
+
+          const upload = cloudinary.uploader.upload(image.tempFilePath, {
+            folder: "img/recipe",
+            public_id: new Date().toISOString(),
+          });
+
+          upload
+            .then(async (data) => {
+              const payload = {
+                title,
+                ingredients,
+                image: data?.secure_url,
+                video,
+                direction,
+                created_by: username,
+              };
+
+              const query = await model.createRecipe(payload);
+
+              if (query) {
+                response(201, "OK", "Recipe has been created", null, res);
+                return;
+              } else {
+                response(
+                  500,
+                  "ERROR",
+                  "WOW... Something wrong with server",
+                  null,
+                  res
+                );
+                return;
+              }
+            })
+            .catch((error) => {
+              response(400, "ERROR", "Awww... Something wrong...", null, res);
+              return;
+            });
+        }
       } else {
         response(500, "ERROR", "WOW... Something wrong with server", null, res);
         return;

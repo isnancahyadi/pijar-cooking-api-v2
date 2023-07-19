@@ -38,4 +38,21 @@ module.exports = {
       return;
     }
   },
+
+  createRecipe: async (payload) => {
+    try {
+      await db`INSERT INTO recipes ${db(
+        payload,
+        "title",
+        "ingredients",
+        "image",
+        "video",
+        "direction",
+        "created_by"
+      )}`;
+      return true;
+    } catch (error) {
+      return;
+    }
+  },
 };
