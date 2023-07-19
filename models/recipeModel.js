@@ -54,6 +54,15 @@ module.exports = {
     }
   },
 
+  getSpecifiedRecipe: async (id) => {
+    try {
+      const query = await db`SELECT * FROM recipes WHERE id = ${id}`;
+      return query;
+    } catch (error) {
+      return;
+    }
+  },
+
   createRecipe: async (payload) => {
     try {
       await db`INSERT INTO recipes ${db(
@@ -65,6 +74,15 @@ module.exports = {
         "direction",
         "created_by"
       )}`;
+      return true;
+    } catch (error) {
+      return;
+    }
+  },
+
+  deleteRecipe: async (id) => {
+    try {
+      await db`DELETE FROM recipes WHERE id = ${id}`;
       return true;
     } catch (error) {
       return;

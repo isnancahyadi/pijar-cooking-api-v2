@@ -162,4 +162,65 @@ module.exports = {
       return;
     }
   },
+
+  deleteRecipe: async (req, res) => {
+    const deletedId = req?.params.id;
+
+    if (isNaN(deletedId)) {
+      response(400, "ERROR", "Hey, What are you doing?", null, res);
+      return;
+    }
+
+    try {
+      const { username } = jwt.verify(getToken(req), process.env.KEY);
+      const findUser = await userModel.findUser(username);
+
+      if (findUser) {
+        if (!findUser.length) {
+          response(404, "ERROR", "Hey, Who are you?", null, res);
+          return;
+        } else {
+          const findRecipe = await model.getSpecifiedRecipe(deletedId);
+
+          if (findRecipe) {
+            if (!findRecipe.length) {
+              response(404, "ERROR", "Recipe not fund", null, res);
+              return;
+            } else {
+              const query = await model.deleteRecipe(deletedId);
+
+              if (query) {
+                response(200, "OK", "Recipe has been deleted", null, res);
+                return;
+              } else {
+                response(
+                  500,
+                  "ERROR",
+                  "WOW... Something wrong with server",
+                  null,
+                  res
+                );
+                return;
+              }
+            }
+          } else {
+            response(
+              500,
+              "ERROR",
+              "WOW... Something wrong with server",
+              null,
+              res
+            );
+            return;
+          }
+        }
+      } else {
+        response(500, "ERROR", "WOW... Something wrong with server", null, res);
+        return;
+      }
+    } catch (error) {
+      response(400, "ERROR", "Awww... Something wrong...", null, res);
+      return;
+    }
+  },
 };

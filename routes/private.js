@@ -15,4 +15,9 @@ module.exports = [
     controller: require("../controllers/Recipe").getMyRecipes,
     method: "get",
   },
+  {
+    path: "/recipe/:id",
+    controller: require("../controllers/Recipe").deleteRecipe,
+    method: "delete",
+  },
 ];
