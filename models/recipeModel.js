@@ -39,10 +39,15 @@ module.exports = {
     }
   },
 
-  getMyRecipes: async (username) => {
+  getMyRecipes: async (username, limit) => {
+    let query;
     try {
-      const query =
-        await db`SELECT * FROM recipes WHERE created_by = ${username}`;
+      if (limit) {
+        query =
+          await db`SELECT * FROM recipes WHERE created_by = ${username} LIMIT ${limit}`;
+      } else {
+        query = await db`SELECT * FROM recipes WHERE created_by = ${username}`;
+      }
       return query;
     } catch (error) {
       return;

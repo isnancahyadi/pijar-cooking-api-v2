@@ -58,7 +58,7 @@ module.exports = {
           response(404, "ERROR", "Hey, Who are you?", null, res);
           return;
         } else {
-          const query = await model.getMyRecipes(username);
+          const query = await model.getMyRecipes(username, req?.query?.limit);
 
           if (query) {
             response(200, "OK", "Get data success", query, res);
