@@ -112,6 +112,42 @@ module.exports = {
     }
   },
 
+  getCategory: async (req, res) => {
+    try {
+      const query = await model.getCategory();
+
+      if (query) {
+        response(200, "OK", "SUCCESS", query, res);
+        return;
+      } else {
+        response(500, "ERROR", "WOW... Something wrong with server", null, res);
+        return;
+      }
+    } catch (error) {
+      response(400, "ERROR", "Awww... Something wrong...", null, res);
+      return;
+    }
+  },
+
+  getRecipesByCategory: async (req, res) => {
+    const { slug } = req?.params;
+
+    try {
+      const query = await model.getRecipesByCategory(slug);
+
+      if (query) {
+        response(200, "OK", "Get data success", query, res);
+        return;
+      } else {
+        response(500, "ERROR", "WOW... Something wrong with server", null, res);
+        return;
+      }
+    } catch (error) {
+      response(400, "ERROR", "Awww... Something wrong...", null, res);
+      return;
+    }
+  },
+
   createRecipe: async (req, res) => {
     try {
       const { username } = jwt.verify(getToken(req), process.env.KEY);

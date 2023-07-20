@@ -63,6 +63,25 @@ module.exports = {
     }
   },
 
+  getCategory: async () => {
+    try {
+      const query = await db`SELECT * FROM category`;
+      return query;
+    } catch (error) {
+      return;
+    }
+  },
+
+  getRecipesByCategory: async (slug) => {
+    try {
+      const query =
+        await db`SELECT recipes.title, recipes.ingredients, recipes.image, recipes.video, recipes.direction, recipes.created_by, recipes.liked, category.name AS category_name FROM recipes JOIN category ON recipes.category = category.id WHERE category.slug = ${slug}`;
+      return query;
+    } catch (error) {
+      return;
+    }
+  },
+
   createRecipe: async (payload) => {
     try {
       await db`INSERT INTO recipes ${db(

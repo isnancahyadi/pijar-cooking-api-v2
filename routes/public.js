@@ -28,8 +28,18 @@ module.exports = [
     method: "get",
   },
   {
-    path: "/recipe/:id",
+    path: "/recipe/detail/:id",
     controller: require("../controllers/Recipe").getSpecifiedRecipe,
+    method: "get",
+  },
+  {
+    path: "/recipe/category",
+    controller: require("../controllers/Recipe").getCategory,
+    method: "get",
+  },
+  {
+    path: "/recipe/category/:slug",
+    controller: require("../controllers/Recipe").getRecipesByCategory,
     method: "get",
   },
 ];
