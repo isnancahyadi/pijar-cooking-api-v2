@@ -88,4 +88,31 @@ module.exports = {
       return;
     }
   },
+
+  updateRecipe: async (id, username, payload) => {
+    try {
+      await db`UPDATE recipes set ${db(
+        payload,
+        "title",
+        "ingredients",
+        "video",
+        "direction"
+      )} WHERE id = ${id} AND created_by = ${username}`;
+      return true;
+    } catch (error) {
+      return;
+    }
+  },
+
+  updateImageRecipe: async (id, username, payload) => {
+    try {
+      await db`UPDATE recipes set ${db(
+        payload,
+        "image"
+      )} WHERE id = ${id} AND created_by = ${username}`;
+      return true;
+    } catch (error) {
+      return;
+    }
+  },
 };

@@ -5,4 +5,8 @@ module.exports = {
     video: "required|url",
     direction: "required",
   },
+
+  updateRecipe: {
+    video: "url",
+  },
 };

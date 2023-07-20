@@ -251,4 +251,167 @@ module.exports = {
       return;
     }
   },
+
+  updateRecipe: async (req, res) => {
+    const {
+      params: { id },
+      body: { title, ingredients, video, direction },
+    } = req;
+
+    if (isNaN(id)) {
+      response(400, "ERROR", "Hey, What are you doing?", null, res);
+      return;
+    }
+
+    try {
+      const { username } = jwt.verify(getToken(req), process.env.KEY);
+      const findUser = await userModel.findUser(username);
+
+      if (findUser) {
+        if (!findUser?.length) {
+          response(404, "ERROR", "Hey, Who are you?", null, res);
+          return;
+        } else {
+          const getSelectedRecipe = await model.getSpecifiedRecipe(id);
+
+          if (getSelectedRecipe) {
+            if (!getSelectedRecipe?.length) {
+              response(404, "ERROR", "Recipe not found", null, res);
+              return;
+            }
+          } else {
+            response(
+              500,
+              "ERROR",
+              "WOW... Something wrong with server",
+              null,
+              res
+            );
+            return;
+          }
+
+          const payload = {
+            title: title ?? getSelectedRecipe[0].title,
+            ingredients: ingredients ?? getSelectedRecipe[0].ingredients,
+            video: video ?? getSelectedRecipe[0].video,
+            direction: direction ?? getSelectedRecipe[0].direction,
+          };
+
+          const query = await model.updateRecipe(id, username, payload);
+
+          if (query) {
+            response(201, "OK", "Recipe has been updated", null, res);
+            return;
+          } else {
+            response(
+              500,
+              "ERROR",
+              "WOW... Something wrong with server",
+              null,
+              res
+            );
+            return;
+          }
+        }
+      } else {
+        response(500, "ERROR", "WOW... Something wrong with server", null, res);
+        return;
+      }
+    } catch (error) {
+      response(400, "ERROR", "Awww... Something wrong...", null, res);
+      return;
+    }
+  },
+
+  updateImageRecipe: async (req, res) => {
+    const { id } = req?.params;
+    const { image } = req?.files ?? {};
+
+    if (isNaN(id)) {
+      response(400, "ERROR", "Hey, What are you doing?", null, res);
+      return;
+    }
+
+    try {
+      const { username } = jwt.verify(getToken(req), process.env.KEY);
+      const findUser = await userModel.findUser(username);
+
+      if (findUser) {
+        if (!findUser?.length) {
+          response(404, "ERROR", "Hey, Who are you?", null, res);
+          return;
+        } else {
+          const getSelectedRecipe = await model.getSpecifiedRecipe(id);
+
+          if (getSelectedRecipe) {
+            if (!getSelectedRecipe?.length) {
+              response(404, "ERROR", "Recipe not found", null, res);
+              return;
+            }
+          } else {
+            response(
+              500,
+              "ERROR",
+              "WOW... Something wrong with server",
+              null,
+              res
+            );
+            return;
+          }
+
+          let mimeType = image.mimetype.split("/")[1];
+          let allowFile = ["jpeg", "jpg", "png", "webp"];
+
+          if (!allowFile?.find((item) => item === mimeType)) {
+            response(
+              400,
+              "ERROR",
+              "Hey, What are you doing with image?",
+              null,
+              res
+            );
+            return;
+          }
+
+          if (image.size > 2000000) {
+            response(400, "ERROR", "Image is too big", null, res);
+            return;
+          }
+
+          const upload = cloudinary.uploader.upload(image.tempFilePath, {
+            folder: "img/recipe",
+            public_id: new Date().toISOString(),
+          });
+
+          upload.then(async (data) => {
+            const payload = {
+              image: data?.secure_url,
+            };
+
+            const query = await model.updateImageRecipe(id, username, payload);
+
+            if (query) {
+              response(201, "OK", "Image recipe has been updated", null, res);
+              return;
+            } else {
+              response(
+                500,
+                "ERROR",
+                "WOW... Something wrong with server",
+                null,
+                res
+              );
+              return;
+            }
+          });
+        }
+      } else {
+        response(500, "ERROR", "WOW... Something wrong with server", null, res);
+        return;
+      }
+    } catch (error) {
+      response(400, "ERROR", "Awww... Something wrong...", null, res);
+      return;
+    }
+  },
 };

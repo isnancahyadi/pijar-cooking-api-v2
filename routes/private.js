@@ -20,4 +20,15 @@ module.exports = [
     controller: require("../controllers/Recipe").deleteRecipe,
     method: "delete",
   },
+  {
+    path: "/recipe/:id",
+    controller: require("../controllers/Recipe").updateRecipe,
+    validator: require("../controllers/Recipe/validator").updateRecipe,
+    method: "patch",
+  },
+  {
+    path: "/recipe/image/:id",
+    controller: require("../controllers/Recipe").updateImageRecipe,
+    method: "patch",
+  },
 ];
