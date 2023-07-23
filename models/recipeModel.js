@@ -19,30 +19,21 @@ module.exports = {
     }
   },
 
-  getNewRecipes: async (limit) => {
+  getNewRecipes: async () => {
     try {
-      let query;
-      if (limit) {
-        query =
-          await db`SELECT * FROM recipes ORDER BY created_at DESC LIMIT ${limit}`;
-      } else {
-        query = await db`SELECT * FROM recipes ORDER BY created_at DESC`;
-      }
+      const query = await db`SELECT * FROM recipes ORDER BY created_at DESC`;
+
       return query;
     } catch (error) {
       return;
     }
   },
 
-  getMyRecipes: async (username, limit) => {
-    let query;
+  getMyRecipes: async (username) => {
     try {
-      if (limit) {
-        query =
-          await db`SELECT * FROM recipes WHERE created_by = ${username} LIMIT ${limit}`;
-      } else {
-        query = await db`SELECT * FROM recipes WHERE created_by = ${username}`;
-      }
+      const query =
+        await db`SELECT * FROM recipes WHERE created_by = ${username}`;
+
       return query;
     } catch (error) {
       return;

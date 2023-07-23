@@ -21,7 +21,7 @@ module.exports = {
         if (dataPaginate === false) {
           return;
         }
-        response(200, "OK", "SUCCESS", dataPaginate, res);
+        response(200, "OK", "Get all data success", dataPaginate, res);
         return;
       } else {
         response(500, "ERROR", "WOW... Something wrong with server", null, res);
@@ -35,10 +35,14 @@ module.exports = {
 
   getNewRecipes: async (req, res) => {
     try {
-      const query = await model.getNewRecipes(req?.query?.limit);
+      const query = await model.getNewRecipes();
 
       if (query) {
-        response(200, "OK", "Get all data success", query, res);
+        let dataPaginate = paginate(req, res, query);
+        if (dataPaginate === false) {
+          return;
+        }
+        response(200, "OK", "Get all data success", dataPaginate, res);
         return;
       } else {
         response(500, "ERROR", "WOW... Something wrong with server", null, res);
@@ -88,10 +92,14 @@ module.exports = {
           response(404, "ERROR", "Hey, Who are you?", null, res);
           return;
         } else {
-          const query = await model.getMyRecipes(username, req?.query?.limit);
+          const query = await model.getMyRecipes(username);
 
           if (query) {
-            response(200, "OK", "Get data success", query, res);
+            let dataPaginate = paginate(req, res, query);
+            if (dataPaginate === false) {
+              return;
+            }
+            response(200, "OK", "Get data success", dataPaginate, res);
             return;
           } else {
             response(
