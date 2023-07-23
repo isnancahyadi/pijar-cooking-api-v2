@@ -1,7 +1,7 @@
 const response = (statusCode, stat, message, payload, res) => {
   res.status(statusCode).json({
     status: stat,
-    message,
+    message: message,
     ...(payload && { payload: payload }),
   });
 };

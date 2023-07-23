@@ -68,11 +68,23 @@ module.exports = {
 
       if (checkAccount) {
         if (!checkAccount?.length || checkAccount === 1) {
-          response(404, "ERROR", "Account not found", null, res);
+          response(
+            404,
+            "ERROR",
+            { auth: { message: "Account not found" } },
+            null,
+            res
+          );
           return;
         }
       } else {
-        response(500, "ERROR", "WOW... Something wrong with server", null, res);
+        response(
+          500,
+          "ERROR",
+          { auth: { message: "WOW... Something wrong with server" } },
+          null,
+          res
+        );
         return;
       }
 
@@ -90,12 +102,24 @@ module.exports = {
           );
           return;
         } else {
-          response(401, "ERROR", "Password invalid", null, res);
+          response(
+            401,
+            "ERROR",
+            { auth: { message: "Password invalid" } },
+            null,
+            res
+          );
           return;
         }
       });
     } catch (error) {
-      response(400, "ERROR", "Awww... Something wrong...", null, res);
+      response(
+        400,
+        "ERROR",
+        { auth: { message: "Awww... Something wrong..." } },
+        null,
+        res
+      );
       return;
     }
   },
