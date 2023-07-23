@@ -1,6 +1,7 @@
 const model = require("../../models/recipeModel");
 const userModel = require("../../models/userModel");
 const response = require("../../utils/response");
+const paginate = require("../../middlewares/pagination");
 const jwt = require("jsonwebtoken");
 const cloudinary = require("../../utils/cloudinary");
 
@@ -13,13 +14,14 @@ const getToken = (req) => {
 module.exports = {
   getAllRecipes: async (req, res) => {
     try {
-      const query = await model.getAllRecipes(
-        req?.query?.search,
-        req?.query?.limit
-      );
+      const query = await model.getAllRecipes(req?.query?.search);
 
       if (query) {
-        response(200, "OK", "SUCCESS", query, res);
+        let dataPaginate = paginate(req, res, query);
+        if (dataPaginate === false) {
+          return;
+        }
+        response(200, "OK", "SUCCESS", dataPaginate, res);
         return;
       } else {
         response(500, "ERROR", "WOW... Something wrong with server", null, res);
