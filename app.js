@@ -3,7 +3,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-const cors = require("cors");
+// const cors = require("cors");
 const fileUpload = require("express-fileupload");
 
 const response = require("./utils/response");
@@ -12,7 +12,7 @@ const indexRouter = require("./routes/index");
 
 const app = express();
 
-app.use(cors());
+// app.use(cors());
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
