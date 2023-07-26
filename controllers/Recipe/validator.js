@@ -4,6 +4,8 @@ module.exports = {
     ingredients: "required",
     video: "required|url",
     direction: "required",
+    category: "required",
+    description: "required",
   },
 
   updateRecipe: {

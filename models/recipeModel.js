@@ -77,7 +77,9 @@ module.exports = {
         "image",
         "video",
         "direction",
-        "created_by"
+        "created_by",
+        "category",
+        "description"
       )}`;
       return true;
     } catch (error) {

@@ -168,7 +168,14 @@ module.exports = {
           response(404, "ERROR", "Hey, Who are you?", null, res);
           return;
         } else {
-          const { title, ingredients, video, direction } = req?.body;
+          const {
+            title,
+            ingredients,
+            video,
+            direction,
+            category,
+            description,
+          } = req?.body;
           const { image } = req?.files;
 
           let mimeType = image.mimetype.split("/")[1];
@@ -204,6 +211,8 @@ module.exports = {
                 video,
                 direction,
                 created_by: username,
+                category,
+                description,
               };
 
               const query = await model.createRecipe(payload);
