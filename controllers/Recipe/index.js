@@ -12,15 +12,44 @@ const getToken = (req) => {
 };
 
 module.exports = {
+  // getAllRecipes: async (req, res) => {
+  //   try {
+  //     const query = await model.getAllRecipes(req?.query?.search);
+
+  //     if (query) {
+  //       let dataPaginate = paginate(req, res, query);
+  //       if (dataPaginate === false) {
+  //         return;
+  //       }
+  //       response(200, "OK", "Get all data success", dataPaginate, res);
+  //       return;
+  //     } else {
+  //       response(500, "ERROR", "WOW... Something wrong with server", null, res);
+  //       return;
+  //     }
+  //   } catch (error) {
+  //     response(400, "ERROR", "Awww... Something wrong...", null, res);
+  //     return;
+  //   }
+  // },
+
   getAllRecipes: async (req, res) => {
+    const { search } = req.query;
     try {
-      const query = await model.getAllRecipes(req?.query?.search);
+      const query = await model.getAllRecipes();
+
+      const searchRecipe = (data) => {
+        return data.filter((item) => item.title.toLowerCase().includes(search));
+      };
 
       if (query) {
-        let dataPaginate = paginate(req, res, query);
+        let data = search ? searchRecipe(query) : query;
+
+        let dataPaginate = paginate(req, res, data);
         if (dataPaginate === false) {
           return;
         }
+
         response(200, "OK", "Get all data success", dataPaginate, res);
         return;
       } else {
@@ -28,6 +57,7 @@ module.exports = {
         return;
       }
     } catch (error) {
+      console.log(error);
       response(400, "ERROR", "Awww... Something wrong...", null, res);
       return;
     }

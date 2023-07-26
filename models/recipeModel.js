@@ -1,18 +1,27 @@
 const db = require("../config/db");
 
 module.exports = {
-  getAllRecipes: async (search) => {
-    let query;
-    let keyword = `%${search}%`;
+  // getAllRecipes: async (search) => {
+  //   let query;
+  //   let keyword = `%${search}%`;
 
+  //   try {
+  //     if (search) {
+  //       query =
+  //         await db`SELECT * FROM recipes WHERE LOWER(title) LIKE LOWER(${keyword})`;
+  //     } else {
+  //       query = await db`SELECT * FROM recipes`;
+  //     }
+
+  //     return query;
+  //   } catch (error) {
+  //     return;
+  //   }
+  // },
+
+  getAllRecipes: async () => {
     try {
-      if (search) {
-        query =
-          await db`SELECT * FROM recipes WHERE LOWER(title) LIKE LOWER(${keyword})`;
-      } else {
-        query = await db`SELECT * FROM recipes`;
-      }
-
+      const query = await db`SELECT * FROM recipes`;
       return query;
     } catch (error) {
       return;
