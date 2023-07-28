@@ -176,7 +176,7 @@ module.exports = {
       const query = await model.getRecipesByCategory(slug);
 
       if (query) {
-        response(200, "OK", "Get data success", query, res);
+        response(200, "OK", "Get data success", paginate(req, res, query), res);
         return;
       } else {
         response(500, "ERROR", "WOW... Something wrong with server", null, res);
