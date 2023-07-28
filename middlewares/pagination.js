@@ -29,7 +29,7 @@ const paginate = (req, res, data) => {
   return (result = {
     ...result,
     current_page: page,
-    tota_page: totalPage,
+    total_page: totalPage,
     total_data: data.length,
     metadata: data.slice(startIndex, endIndex),
   });
