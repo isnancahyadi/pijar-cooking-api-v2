@@ -17,11 +17,23 @@ module.exports = {
 
       if (getEmailAccount) {
         if (getEmailAccount?.length) {
-          response(409, "ERROR", "Email already registered", null, res);
+          response(
+            409,
+            "ERROR",
+            { auth: { message: "Email already registered" } },
+            null,
+            res
+          );
           return;
         }
       } else {
-        response(500, "ERROR", "WOW... Something wrong with server", null, res);
+        response(
+          500,
+          "ERROR",
+          { auth: { message: "WOW... Something wrong with server" } },
+          null,
+          res
+        );
         return;
       }
 
@@ -29,11 +41,23 @@ module.exports = {
 
       if (getUsernameAccount) {
         if (getUsernameAccount?.length) {
-          response(409, "ERROR", "Account already registered", null, res);
+          response(
+            409,
+            "ERROR",
+            { auth: { message: "Account already registered" } },
+            null,
+            res
+          );
           return;
         }
       } else {
-        response(500, "ERROR", "WOW... Something wrong with server", null, res);
+        response(
+          500,
+          "ERROR",
+          { auth: { message: "WOW... Something wrong with server" } },
+          null,
+          res
+        );
         return;
       }
 
@@ -47,7 +71,7 @@ module.exports = {
           response(
             500,
             "ERROR",
-            "WOW... Something wrong with server",
+            { auth: { message: "WOW... Something wrong with server" } },
             null,
             res
           );
@@ -55,7 +79,13 @@ module.exports = {
         }
       });
     } catch (error) {
-      response(400, "ERROR", "Awww... Something wrong...", null, res);
+      response(
+        400,
+        "ERROR",
+        { auth: { message: "Awww... Something wrong..." } },
+        null,
+        res
+      );
       return;
     }
   },
