@@ -23,11 +23,23 @@ module.exports = {
 
       if (findUser) {
         if (findUser?.length) {
-          response(409, "ERROR", "User already registered", null, res);
+          response(
+            409,
+            "ERROR",
+            { auth: { message: "User already registered" } },
+            null,
+            res
+          );
           return;
         }
       } else {
-        response(500, "ERROR", "WOW... Something wrong with server", null, res);
+        response(
+          500,
+          "ERROR",
+          { auth: { message: "WOW... Something wrong with server" } },
+          null,
+          res
+        );
         return;
       }
 
@@ -37,11 +49,23 @@ module.exports = {
         response(201, "OK", "User has been created", query, res);
         return;
       } else {
-        response(500, "ERROR", "WOW... Something wrong with server", null, res);
+        response(
+          500,
+          "ERROR",
+          { auth: { message: "WOW... Something wrong with server" } },
+          null,
+          res
+        );
         return;
       }
     } catch (error) {
-      response(400, "ERROR", "Awww... Something wrong...", null, res);
+      response(
+        400,
+        "ERROR",
+        { auth: { message: "Awww... Something wrong..." } },
+        null,
+        res
+      );
       return;
     }
   },
