@@ -125,12 +125,10 @@ module.exports = {
           const query = await model.getMyRecipes(username);
 
           if (query) {
-            let dataPaginate = paginate(req, res, query);
-            if (dataPaginate === false) {
+            if (!query.length) {
+              response(404, "ERROR", "Recipe not found", null, res);
               return;
             }
-            response(200, "OK", "Get data success", dataPaginate, res);
-            return;
           } else {
             response(
               500,
@@ -141,6 +139,13 @@ module.exports = {
             );
             return;
           }
+
+          let dataPaginate = paginate(req, res, query);
+          if (dataPaginate === false) {
+            return;
+          }
+          response(200, "OK", "Get data success", dataPaginate, res);
+          return;
         }
       } else {
         response(500, "ERROR", "WOW... Something wrong with server", null, res);
