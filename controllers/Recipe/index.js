@@ -181,12 +181,21 @@ module.exports = {
       const query = await model.getRecipesByCategory(slug);
 
       if (query) {
-        response(200, "OK", "Get data success", paginate(req, res, query), res);
-        return;
+        if (!query.length) {
+          response(404, "ERROR", "Recipe not found", null, res);
+          return;
+        }
       } else {
         response(500, "ERROR", "WOW... Something wrong with server", null, res);
         return;
       }
+
+      let dataPaginate = paginate(req, res, query);
+      if (dataPaginate === false) {
+        return;
+      }
+      response(200, "OK", "Get data success", dataPaginate, res);
+      return;
     } catch (error) {
       response(400, "ERROR", "Awww... Something wrong...", null, res);
       return;
