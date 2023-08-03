@@ -5,6 +5,7 @@ This repository contains the source code for Pijar Cooking API, a backend applic
 ## Table of Contents
 
 - [Introduction](#introduction)
+- [Demo](#demo)
 - [Technologies Used](#technologies-used)
 - [Installation](#installation)
 - [Configuration](#configuration)
@@ -17,6 +18,13 @@ This repository contains the source code for Pijar Cooking API, a backend applic
 ## Introduction
 
 Pijar Cooking API is an API designed to support cooking recipe applications. It provides endpoints to manage recipes, ingredients, cooking techniques, user accounts, and more. The API is secured using JSON Web Tokens for authentication and bcrypt for password hashing.
+
+## Demo
+
+Visit the link below for demo.
+
+- :globe_with_meridians: [Pijar Cooking Webiste Demo](https://pijar-cooking-web-v3.vercel.app/)
+- :link: [Pijar Cooking API Demo](https://pijar-cooking-api-v2-production.up.railway.app/)
 
 ## Technologies Used
 
@@ -80,9 +88,7 @@ CLOUDINARY_API_SECRET=your_cloudinary_api_secret
 | **PATCH**  | /recipe/image/:id      | Update an image recipe by ID    | Authorization |                     |
 | **DELETE** | /recipe/:id            | Delete an existing recipe by ID | Authorization |                     |
 
-If you want use this API, you can access https://pijar-cooking-api-v2-production.up.railway.app/ using provided endpoints.
-
-If you want the details from this API, you can access the postman documentation bellow.
+If you want the details from this API, you can access the postman documentation below.
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/16769588/2s9Xxwwts5)
 
@@ -98,7 +104,6 @@ The API handles errors gracefully and provides informative error responses. If a
 
 - :desktop_computer: [Pijar Cooking Website ver](https://github.com/isnancahyadi/pijar-cooking-web-v3)
 - :iphone: [Pijar Cooking Mobile ver](https://github.com/isnancahyadi/pijar-cooking-mobile)
-- :globe_with_meridians: [Pijar Cooking Webiste Demo](https://pijar-cooking-web-v3.vercel.app/)
 
 ## Authors and Contact Info
 
