@@ -209,7 +209,13 @@ module.exports = {
 
       if (findUser) {
         if (!findUser?.length) {
-          response(404, "ERROR", "Hey, Who are you?", null, res);
+          response(
+            404,
+            "ERROR",
+            { error: { message: "Hey, Who are you?" } },
+            null,
+            res
+          );
           return;
         } else {
           const {
@@ -229,7 +235,7 @@ module.exports = {
             response(
               400,
               "ERROR",
-              "Hey, What are you doing with image?",
+              { error: { message: "Hey, What are you doing with image?" } },
               null,
               res
             );
@@ -237,7 +243,13 @@ module.exports = {
           }
 
           if (image.size > 2000000) {
-            response(400, "ERROR", "Image is too big", null, res);
+            response(
+              400,
+              "ERROR",
+              { error: { message: "Image is too big" } },
+              null,
+              res
+            );
             return;
           }
 
@@ -268,7 +280,7 @@ module.exports = {
                 response(
                   500,
                   "ERROR",
-                  "WOW... Something wrong with server",
+                  { error: { message: "WOW... Something wrong with server" } },
                   null,
                   res
                 );
@@ -276,16 +288,34 @@ module.exports = {
               }
             })
             .catch((error) => {
-              response(400, "ERROR", "Awww... Something wrong...", null, res);
+              response(
+                400,
+                "ERROR",
+                { error: { message: "Awww... Something wrong..." } },
+                null,
+                res
+              );
               return;
             });
         }
       } else {
-        response(500, "ERROR", "WOW... Something wrong with server", null, res);
+        response(
+          500,
+          "ERROR",
+          { error: { message: "WOW... Something wrong with server" } },
+          null,
+          res
+        );
         return;
       }
     } catch (error) {
-      response(400, "ERROR", "Awww... Something wrong...", null, res);
+      response(
+        400,
+        "ERROR",
+        { error: { message: "Awww... Something wrong..." } },
+        null,
+        res
+      );
       return;
     }
   },
