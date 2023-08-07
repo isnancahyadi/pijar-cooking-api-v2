@@ -158,7 +158,7 @@ module.exports = {
           return;
         } else {
           response(
-            401,
+            403,
             "ERROR",
             { auth: { message: "Password invalid" } },
             null,
