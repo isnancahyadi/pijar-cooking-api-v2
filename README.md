@@ -23,8 +23,8 @@ Pijar Cooking API is an API designed to support cooking recipe applications. It 
 
 Visit the link below for demo.
 
-- :globe_with_meridians: [Pijar Cooking Webiste Demo](https://pijar-cooking-web-v3.vercel.app/)
-- :link: [Pijar Cooking API Demo](https://pijar-cooking-api-v2-production.up.railway.app/)
+- :globe_with_meridians: [Pijar Cooking Webiste Demo](https://pijar-cooking-web.vercel.app/)
+- :link: [Pijar Cooking API Demo](https://pijar-cooking-api.up.railway.app/)
 
 ## Technologies Used
 
@@ -42,8 +42,8 @@ The project is built using the following stack:
 1. Clone this repository to your local machine:
 
 ```bash
-git clone https://github.com/isnancahyadi/pijar-cooking-api-v2.git
-cd pijar-cooking-api-v2
+git clone https://github.com/isnancahyadi/pijar-cooking-api.git
+cd pijar-cooking-api
 ```
 
 2. Install the required dependencies using npm:
@@ -102,7 +102,7 @@ The API handles errors gracefully and provides informative error responses. If a
 
 ## Related Project
 
-- :desktop_computer: [Pijar Cooking Website ver](https://github.com/isnancahyadi/pijar-cooking-web-v3)
+- :desktop_computer: [Pijar Cooking Website ver](https://github.com/isnancahyadi/pijar-cooking-web)
 - :iphone: [Pijar Cooking Mobile ver](https://github.com/isnancahyadi/pijar-cooking-mobile)
 
 ## Authors and Contact Info
