@@ -39,7 +39,9 @@ module.exports = {
       const query = await model.getAllRecipes();
 
       const searchRecipe = (data) => {
-        return data.filter((item) => item.title.toLowerCase().includes(search));
+        return data.filter((item) =>
+          item.title.toLowerCase().includes(search.toLowerCase())
+        );
       };
 
       if (query) {
