@@ -121,30 +121,30 @@ module.exports = {
 
       const checkUser = await userModel.findUser(checkAccount[0]?.username);
 
-      if (checkUser) {
-        if (!checkUser?.length) {
-          response(
-            401,
-            "ERROR",
-            { auth: { message: "Profiles data not found" } },
-            null,
-            res
-          );
-          return;
-        }
-      } else {
-        response(
-          500,
-          "ERROR",
-          { auth: { message: "WOW... Something wrong with server" } },
-          null,
-          res
-        );
-        return;
-      }
-
       bcrypt.compare(password, checkAccount[0]?.password, (err, result) => {
         if (result) {
+          if (checkUser) {
+            if (!checkUser?.length) {
+              response(
+                401,
+                "ERROR",
+                { auth: { message: "Profiles data not found" } },
+                null,
+                res
+              );
+              return;
+            }
+          } else {
+            response(
+              500,
+              "ERROR",
+              { auth: { message: "WOW... Something wrong with server" } },
+              null,
+              res
+            );
+            return;
+          }
+
           delete checkAccount[0].password;
           const token = jwt.sign(checkAccount[0], process.env.KEY);
 
