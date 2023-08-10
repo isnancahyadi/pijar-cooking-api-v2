@@ -1,4 +1,5 @@
 const model = require("../../models/userModel");
+const accountModel = require("../../models/authModel");
 const response = require("../../utils/response");
 const jwt = require("jsonwebtoken");
 
@@ -13,12 +14,6 @@ module.exports = {
     const { fullname, phoneNumber, username } = req.body;
 
     try {
-      const payLoad = {
-        fullname,
-        phone_number: phoneNumber,
-        username,
-      };
-
       const findUser = await model.findUser(username);
 
       if (findUser) {
@@ -42,6 +37,36 @@ module.exports = {
         );
         return;
       }
+
+      const checkAccount = await accountModel.checkAccount(username);
+
+      if (checkAccount) {
+        if (!checkAccount?.length || checkAccount === 1) {
+          response(
+            404,
+            "ERROR",
+            { auth: { message: "Account not found" } },
+            null,
+            res
+          );
+          return;
+        }
+      } else {
+        response(
+          500,
+          "ERROR",
+          { auth: { message: "WOW... Something wrong with server" } },
+          null,
+          res
+        );
+        return;
+      }
+
+      const payLoad = {
+        fullname,
+        phone_number: phoneNumber,
+        username: checkAccount[0]?.username,
+      };
 
       const query = await model.createUser(payLoad);
 
