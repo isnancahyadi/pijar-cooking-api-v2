@@ -8,7 +8,7 @@ module.exports = {
         "fullname",
         "phone_number",
         "username"
-      )} returning id, profile_picture`;
+      )} returning id, profile_picture, username`;
       return query;
     } catch (error) {
       return;
