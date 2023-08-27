@@ -23,4 +23,17 @@ module.exports = {
       return;
     }
   },
+
+  updateUser: async (payload, username) => {
+    try {
+      await db`UPDATE users set ${db(
+        payload,
+        "fullname",
+        "phone_number"
+      )} WHERE username = ${username}`;
+      return true;
+    } catch (error) {
+      return;
+    }
+  },
 };

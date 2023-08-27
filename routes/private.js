@@ -5,6 +5,12 @@ module.exports = [
     method: "get",
   },
   {
+    path: "/user",
+    controller: require("../controllers/Users").updateUser,
+    validator: require("../controllers/Users/validator").updateUser,
+    method: "patch",
+  },
+  {
     path: "/recipe",
     controller: require("../controllers/Recipe").createRecipe,
     validator: require("../controllers/Recipe/validator").createRecipe,

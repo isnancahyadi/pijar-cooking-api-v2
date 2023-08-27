@@ -117,4 +117,65 @@ module.exports = {
       return;
     }
   },
+
+  updateUser: async (req, res) => {
+    const { fullname, phoneNumber } = req.body;
+
+    try {
+      const { username } = jwt.verify(getToken(req), process.env.KEY);
+      const checkUser = await model.findUser(username);
+
+      if (checkUser) {
+        if (!checkUser?.length) {
+          response(
+            404,
+            "ERROR",
+            { user: { message: "Hey, Who are you?" } },
+            null,
+            res
+          );
+          return;
+        }
+      } else {
+        response(
+          500,
+          "ERROR",
+          { user: { message: "WOW... Something wrong with server" } },
+          null,
+          res
+        );
+        return;
+      }
+
+      const payload = {
+        fullname: fullname,
+        phone_number: phoneNumber,
+      };
+
+      const query = await model.updateUser(payload, username);
+
+      if (query) {
+        response(201, "OK", "User has been updated", null, res);
+        return;
+      } else {
+        response(
+          500,
+          "ERROR",
+          { user: { message: "WOW... Something wrong with server" } },
+          null,
+          res
+        );
+        return;
+      }
+    } catch (error) {
+      response(
+        400,
+        "ERROR",
+        { user: { message: "Awww... Something wrong..." } },
+        null,
+        res
+      );
+      return;
+    }
+  },
 };
