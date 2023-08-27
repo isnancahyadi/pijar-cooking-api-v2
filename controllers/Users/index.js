@@ -216,7 +216,7 @@ module.exports = {
         response(
           400,
           "ERROR",
-          "Hey, What are you doing with image?",
+          { user: { message: "Hey, What are you doing with image?" } },
           null,
           res
         );
@@ -224,7 +224,13 @@ module.exports = {
       }
 
       if (photoProfile.size > 2000000) {
-        response(400, "ERROR", "Image is too big", null, res);
+        response(
+          400,
+          "ERROR",
+          { user: { message: "Image is too big" } },
+          null,
+          res
+        );
         return;
       }
 
@@ -247,7 +253,7 @@ module.exports = {
           response(
             500,
             "ERROR",
-            "WOW... Something wrong with server",
+            { user: { message: "WOW... Something wrong with server" } },
             null,
             res
           );
@@ -255,7 +261,13 @@ module.exports = {
         }
       });
     } catch (error) {
-      response(400, "ERROR", "Awww... Something wrong...", null, res);
+      response(
+        400,
+        "ERROR",
+        { user: { message: "Awww... Something wrong..." } },
+        null,
+        res
+      );
       return;
     }
   },
