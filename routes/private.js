@@ -11,6 +11,11 @@ module.exports = [
     method: "patch",
   },
   {
+    path: "/user/photo",
+    controller: require("../controllers/Users").updatePhotoUser,
+    method: "patch",
+  },
+  {
     path: "/recipe",
     controller: require("../controllers/Recipe").createRecipe,
     validator: require("../controllers/Recipe/validator").createRecipe,

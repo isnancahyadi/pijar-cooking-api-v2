@@ -36,4 +36,16 @@ module.exports = {
       return;
     }
   },
+
+  updatePhotoUser: async (payload, username) => {
+    try {
+      await db`UPDATE users set ${db(
+        payload,
+        "profile_picture"
+      )} WHERE username = ${username}`;
+      return true;
+    } catch (error) {
+      return;
+    }
+  },
 };
