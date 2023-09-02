@@ -41,7 +41,7 @@ module.exports = {
   getMyRecipes: async (username) => {
     try {
       const query =
-        await db`SELECT * FROM recipes WHERE created_by = ${username}`;
+        await db`SELECT * FROM recipes WHERE created_by = ${username} ORDER BY created_at DESC`;
 
       return query;
     } catch (error) {
