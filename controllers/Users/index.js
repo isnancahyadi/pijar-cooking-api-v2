@@ -156,7 +156,7 @@ module.exports = {
       const query = await model.updateUser(payload, username);
 
       if (query) {
-        response(201, "OK", "User has been updated", null, res);
+        response(201, "OK", "User has been updated", query, res);
         return;
       } else {
         response(
@@ -247,7 +247,7 @@ module.exports = {
         const query = await model.updatePhotoUser(payload, username);
 
         if (query) {
-          response(201, "OK", "Photo profile has been updated", null, res);
+          response(201, "OK", "Photo profile has been updated", query, res);
           return;
         } else {
           response(

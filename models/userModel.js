@@ -26,12 +26,12 @@ module.exports = {
 
   updateUser: async (payload, username) => {
     try {
-      await db`UPDATE users set ${db(
+      const query = await db`UPDATE users set ${db(
         payload,
         "fullname",
         "phone_number"
-      )} WHERE username = ${username}`;
-      return true;
+      )} WHERE username = ${username} returning id`;
+      return query;
     } catch (error) {
       return;
     }
@@ -39,11 +39,11 @@ module.exports = {
 
   updatePhotoUser: async (payload, username) => {
     try {
-      await db`UPDATE users set ${db(
+      const query = await db`UPDATE users set ${db(
         payload,
         "profile_picture"
-      )} WHERE username = ${username}`;
-      return true;
+      )} WHERE username = ${username} returning id, profile_picture`;
+      return query;
     } catch (error) {
       return;
     }
