@@ -16,6 +16,16 @@ module.exports = [
     method: "patch",
   },
   {
+    path: "/auth/account",
+    controller: require("../controllers/Auth").updateAccount,
+    method: "patch",
+  },
+  {
+    path: "/auth/password",
+    controller: require("../controllers/Auth").updatePassword,
+    method: "patch",
+  },
+  {
     path: "/recipe",
     controller: require("../controllers/Recipe").createRecipe,
     validator: require("../controllers/Recipe/validator").createRecipe,

@@ -44,4 +44,29 @@ module.exports = {
       return 0;
     }
   },
+
+  updateAccount: async (username, payload) => {
+    try {
+      await db`UPDATE accounts set ${db(
+        payload,
+        "username",
+        "email"
+      )} WHERE username = ${username}`;
+      return true;
+    } catch (error) {
+      return;
+    }
+  },
+
+  updatePassword: async (username, password) => {
+    try {
+      await db`UPDATE accounts set ${db(
+        password,
+        "password"
+      )} WHERE username = ${username}`;
+      return true;
+    } catch (error) {
+      return;
+    }
+  },
 };
