@@ -19,6 +19,8 @@
     "jsonwebtoken": "^9.0.1",
     "morgan": "~1.9.1",
     "node-input-validator": "^4.5.1",
-    "postgres": "^3.3.5"
+    "postgres": "^3.3.5",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
   }
 }

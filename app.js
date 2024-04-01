@@ -5,12 +5,55 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
 const fileUpload = require("express-fileupload");
+const swaggerjsdoc = require("swagger-jsdoc");
+const swaggerui = require("swagger-ui-express");
 
 const response = require("./utils/response");
 
 const indexRouter = require("./routes/index");
 
 const app = express();
+
+const swaggerOption = {
+  swaggerDefinition: {
+    openapi: "3.1.0",
+    info: {
+      version: "1.0.0",
+      title: "Pijar Cooking API",
+      description:
+        "This is API docs for Pijar Cooking mobile and web aplication",
+      contact: {
+        name: "Isnan A. Cahyadi",
+        email: "isnan.arifc@gmail.com",
+      },
+    },
+    schemes: ["http", "https"],
+    servers: [
+      {
+        url: "http://localhost:8000/",
+        description: "Development Server",
+      },
+    ],
+    components: {
+      securitySchemes: {
+        ApiKeyAuth: {
+          type: "apiKey",
+          in: "header",
+          name: "Authorization",
+        },
+      },
+    },
+    // security: [
+    //   {
+    //     ApiKeyAuth: [],
+    //   },
+    // ],
+  },
+  apis: ["./docs/*.js", "./docs/*/*.js"],
+};
+
+const swaggerDocs = swaggerjsdoc(swaggerOption);
+app.use("/api/docs", swaggerui.serve, swaggerui.setup(swaggerDocs));
 
 app.use(cors());
 
