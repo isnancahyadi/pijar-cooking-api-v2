@@ -1,0 +1,20 @@
+yarn check-format || npm run check-format ||
+(
+    echo '🔨❌ You have a problem in your format code. Check linter 🔨❌
+          Run linter, add changes and try commit again.';
+    false;
+)
+
+yarn lint || npm run lint ||
+(
+    echo '🔨❌ You have a problem in your code. Check linter 🔨❌
+          Run linter, add changes and try commit again.';
+    false;
+)
+
+yarn check-type || npm run check-type ||
+(
+    echo '🔨❌ You have a problem in your type code. Check linter 🔨❌
+          Run linter, add changes and try commit again.';
+    false;
+)

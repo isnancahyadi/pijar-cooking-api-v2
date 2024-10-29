@@ -1,0 +1,6 @@
+yarn build || npm run build ||
+(
+    echo '🔨❌ You have a problem in your code. Check linter 🔨❌
+          Run pnpm lint or pnpm format, add changes and try commit again.';
+    false;
+)
