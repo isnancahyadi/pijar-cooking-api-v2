@@ -3,7 +3,7 @@ const router = Router();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.send('Hello, API is running well. ^_^');
 });
 
 export default router;
