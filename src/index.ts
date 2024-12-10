@@ -1,6 +1,9 @@
 import express, { Application } from 'express';
+import swaggerUI from 'swagger-ui-express';
 
 import appMiddleware from './middleware/App';
+import { swaggerDocs } from './config/swagger';
+
 import MainRouter from './routes';
 
 const app: Application = express();
@@ -9,6 +12,7 @@ const port: number =
 
 app.use(appMiddleware);
 
+app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 app.use('/api', MainRouter);
 
 app.listen(port, () => {

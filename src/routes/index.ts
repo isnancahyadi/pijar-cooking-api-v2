@@ -10,7 +10,7 @@ router.get('/', function (req, res, next) {
   res.send('Hello, API is running well. ^_^');
 });
 
-router.use('/account', AccountRouter);
+router.use('/auth', AccountRouter);
 router.use('/recipe', RecipeRouter);
 
 export default router;
