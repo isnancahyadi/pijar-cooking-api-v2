@@ -4,6 +4,6 @@ import { CreateAccount } from '../../controllers/Account';
 
 const AccountRouter = Router();
 
-AccountRouter.post('/', CreateAccount);
+AccountRouter.post('/register', CreateAccount);
 
 export default AccountRouter;

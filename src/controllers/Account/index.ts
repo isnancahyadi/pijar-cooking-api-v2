@@ -83,8 +83,8 @@ export const CreateAccount = async (req: Request, res: Response) => {
       });
     } else {
       res.status(500).json({
-        message: 'An unexpected error occurred',
         error: 'Unknown error',
+        message: 'An unexpected error occurred',
       });
     }
   }
