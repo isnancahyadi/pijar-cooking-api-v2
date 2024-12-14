@@ -1,13 +1,15 @@
 import Joi from 'joi';
+
 import { AccountParamsType } from '../../types/schema/account.type';
-import { REQUIRED_STRING } from './_constant';
 import { ModelValidationReturnType } from '../../types/common';
+
+import { REQUIRED_STRING } from './_constant';
 
 export const regAccountValidation = (
   payload: AccountParamsType,
   callbacks?: ModelValidationReturnType<AccountParamsType>,
 ): Joi.ValidationResult<AccountParamsType> => {
-  const schema = Joi.object({
+  const schema = Joi.object<AccountParamsType>({
     id_account: REQUIRED_STRING.uuid().messages({
       'any.required': 'Account must have an ID',
       'string.base': 'ID must be a string',

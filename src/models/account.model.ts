@@ -20,7 +20,10 @@ export const CreateAccountModel = async (payload: AccountParamsType) => {
 };
 
 export const GetAccountByField = async <
-  T extends keyof Pick<AccountParamsType, 'email' | 'username' | 'nickname'>,
+  T extends keyof Pick<
+    AccountParamsType,
+    'id_account' | 'email' | 'username' | 'nickname'
+  >,
 >(
   field: T,
   value: AccountParamsType[T],
